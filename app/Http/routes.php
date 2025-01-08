@@ -37,4 +37,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'check.default.passw
     Route::get('/filiations/edit', function () {
         return view('filiations.edit');
     })->name('filiations.edit');
+
+    Route::get('/users', function () {
+        return view('users.index');
+    })->name('users.index');
+
+    Route::get('/users/create', function () {
+        return view('users.create');
+    })->name('users.create');
 });
