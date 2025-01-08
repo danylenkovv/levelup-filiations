@@ -38,13 +38,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'check.default.passw
         return view('filiations.edit');
     })->name('filiations.edit');
 
-    Route::get('/users', function () {
-        return view('users.index');
-    })->name('users.index');
+    Route::get('/users', 'UserController@index')->name('users.index');
 
-    Route::get('/users/create', function () {
-        return view('users.create');
-    })->name('users.create');
+    Route::get('/users/create', 'UserController@create')->name('users.create');
+
+    Route::post('/users', 'UserController@store')->name('users.store');
+
+    Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy');
 
     Route::get('/settings', function () {
         return view('settings.index');

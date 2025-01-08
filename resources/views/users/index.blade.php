@@ -22,6 +22,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($users as $user)
+                        <tr>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->login }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>
+                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline-block;">
+                                    {{ @csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
