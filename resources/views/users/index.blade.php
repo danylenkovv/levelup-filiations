@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title mb-0">Users</h3>
-                <a href="{{route('users.create')}}" class="btn btn-primary ml-auto">Create new user</a>
+                <a href="{{route('admin.user.create')}}" class="btn btn-primary ml-auto">Create new user</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -28,7 +28,7 @@
                             <td>{{ $user->login }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
-                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline-block;">
+                                <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST" style="display: inline-block;">
                                     {{ @csrf_field() }}
                                     {{ method_field('DELETE') }}
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>

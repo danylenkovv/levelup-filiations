@@ -38,13 +38,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'check.default.passw
         return view('filiations.edit');
     })->name('filiations.edit');
 
-    Route::get('/users', 'UserController@index')->name('users.index');
-
-    Route::get('/users/create', 'UserController@create')->name('users.create');
-
-    Route::post('/users', 'UserController@store')->name('users.store');
-
-    Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy');
+    Route::resource('user', 'UserController', ['only' => [
+        'index',
+        'create',
+        'store',
+        'destroy'
+    ]]);
 
     Route::get('/settings', 'SettingController@index')->name('settings.index');
     Route::post('/settings', 'SettingController@update')->name('settings.update');
