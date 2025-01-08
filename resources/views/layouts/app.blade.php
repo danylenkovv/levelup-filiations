@@ -21,7 +21,7 @@
             <div class="container">
                 <a href="{{route('app')}}" class="navbar-brand">
                     <img src="{{asset('images/FiliationsLogo.png')}}" alt="FiliationsLogo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                    <span class="brand-text font-weight-light">Filiations</span>
+                    <span class="brand-text font-weight-light">{{ config('settings.logo_text') }}</span>
                 </a>
             </div>
         </nav>
@@ -30,10 +30,10 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container">
-                    <div class="row mb-2">
+                    <div class="row mb-2 mt-3">
                         <div class="col-sm-6">
-                            <h1 class="m-0"> It's filiation list</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque et sagittis tortor, vel pulvinar erat. Ut quis turpis vel magna hendrerit iaculis. Vivamus sed risus lectus.</p>
+                            <h1 class="m-0"> {{ config('settings.site_name') }}</h1>
+                            <p>{{ config('settings.site_description') }}</p>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -56,7 +56,7 @@
             <div class="container">
                 <!-- To the right -->
                 <div class="float-right d-none d-sm-inline">
-                    Created By Danylenko
+                    {{ config('settings.footer_text') }}
                 </div>
                 <!-- Default to the left -->
                 <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
