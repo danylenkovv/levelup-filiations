@@ -45,4 +45,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'check.default.passw
     Route::get('/users/create', function () {
         return view('users.create');
     })->name('users.create');
+
+    Route::get('/settings', function () {
+        return view('settings.index');
+    })->name('settings.index');
 });
