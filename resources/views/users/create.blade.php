@@ -1,7 +1,4 @@
 @extends('layouts.admin')
-@section('additional-styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css">
-@endsection
 @section('content')
 <div class="row">
     <div class="col-lg-12">
@@ -45,24 +42,4 @@
         </div>
     </div>
 </div>
-@endsection
-@section('scripts')
-<script src="{{asset('adminlte/plugins/js/bs-custom-file-input.min.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
-<script>
-    $(function() {
-        bsCustomFileInput.init();
-    });
-    $(document).ready(function() {
-        $('#info').summernote({
-            height: 200,
-            toolbar: [
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
-    });
-</script>
 @endsection
