@@ -11,22 +11,30 @@
 |
 */
 
-//Show public page 
+// Show public page
 Route::get('/', function () {
     return view('filiations.index');
 })->name('app');
 
-// Show login form
+// Auth routes
 Route::get('login', 'Auth\AuthController@showLoginForm')->name('login');
-
-// Login user to system
-Route::post('login', 'Auth\AuthController@login');
-
-// Logout user from system
+Route::post('login', 'Auth\AuthController@login')->name('login');
 Route::post('logout', 'Auth\AuthController@logout')->name('logout');
 
-//Show change password form
 Route::get('/password/change', 'Auth\PasswordController@showChangeForm')->name('password.change');
-
-//Change default user password
 Route::post('/password/change', 'Auth\PasswordController@updatePassword')->name('password.update');
+
+// Admin routes with middleware for authentication
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return view('filiations.admin');
+    })->name('admin');
+
+    Route::get('/filiations/create', function () {
+        return view('filiations.create');
+    })->name('filiations.create');
+
+    Route::get('/filiations/edit', function () {
+        return view('filiations.edit');
+    })->name('filiations.edit');
+});
