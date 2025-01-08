@@ -46,7 +46,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'check.default.passw
 
     Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy');
 
-    Route::get('/settings', function () {
-        return view('settings.index');
-    })->name('settings.index');
+    Route::get('/settings', 'SettingController@index')->name('settings.index');
+    Route::post('/settings', 'SettingController@update')->name('settings.update');
 });

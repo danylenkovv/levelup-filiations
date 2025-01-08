@@ -8,51 +8,61 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="#" method="post" class="form-horizontal">
+            <form action="{{ route('settings.update') }}" method="post" class="form-horizontal">
+                {{ csrf_field() }}
                 <div class="card-body">
-                    <!-- Brand -->
-                    <div class="form-group row">
-                        <label for="brand" class="col-sm-2 col-form-label">Brand</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="brand" class="form-control" id="brand" placeholder="Enter brand here...">
-                        </div>
-                    </div>
+
                     <!-- Logo -->
                     <div class="form-group row">
-                        <label for="exampleInputFile" class="col-sm-2 col-form-label">Logo</label>
+                        <label for="logo" class="col-sm-2 col-form-label">Logo</label>
                         <div class="col-sm-10">
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" name="logo_url" class="custom-file-input" id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Choose photo for logo</label>
-                                </div>
-                                <div class="input-group-append">
-                                    <span class="input-group-text">Upload</span>
-                                </div>
-                            </div>
+                            <input type="text" name="logo_text" class="form-control {{ $errors->has('logo_text') ? 'is-invalid' : '' }}"
+                                id="logo" value="{{ old('logo_text', $settings['logo_text'] ?? '') }}"
+                                placeholder="Enter logo here...">
+                            @if($errors->has('logo_text'))
+                            <span class="invalid-feedback d-block">{{ $errors->first('logo_text') }}</span>
+                            @endif
                         </div>
                     </div>
+
                     <!-- Site Name -->
                     <div class="form-group row">
                         <label for="name" class="col-sm-2 col-form-label">Site Name</label>
                         <div class="col-sm-10">
-                            <input type="text" name="site_name" class="form-control" id="name" placeholder="Enter site name here...">
+                            <input type="text" name="site_name" class="form-control {{ $errors->has('site_name') ? 'is-invalid' : '' }}"
+                                id="name" value="{{ old('site_name', $settings['site_name'] ?? '') }}"
+                                placeholder="Enter site name here...">
+                            @if($errors->has('site_name'))
+                            <span class="invalid-feedback d-block">{{ $errors->first('site_name') }}</span>
+                            @endif
                         </div>
                     </div>
+
                     <!-- Site Description -->
                     <div class="form-group row">
-                        <label for="description" class="col-sm-2 col-form-label">Site description</label>
+                        <label for="description" class="col-sm-2 col-form-label">Site Description</label>
                         <div class="col-sm-10">
-                            <textarea name="description" class="form-control" rows="3" id="description" placeholder="Enter some description..."></textarea>
+                            <textarea name="site_description" class="form-control {{ $errors->has('site_description') ? 'is-invalid' : '' }}"
+                                rows="3" id="description" placeholder="Enter some description...">{{ old('site_description', $settings['site_description'] ?? '') }}</textarea>
+                            @if($errors->has('site_description'))
+                            <span class="invalid-feedback d-block">{{ $errors->first('site_description') }}</span>
+                            @endif
                         </div>
                     </div>
+
                     <!-- Footer -->
                     <div class="form-group row">
                         <label for="footer" class="col-sm-2 col-form-label">Footer</label>
                         <div class="col-sm-10">
-                            <input type="text" name="footer" class="form-control" id="footer" placeholder="Enter some footer text here...">
+                            <input type="text" name="footer_text" class="form-control {{ $errors->has('footer_text') ? 'is-invalid' : '' }}"
+                                id="footer" value="{{ old('footer_text', $settings['footer_text'] ?? '') }}"
+                                placeholder="Enter some footer text here...">
+                            @if($errors->has('footer_text'))
+                            <span class="invalid-feedback d-block">{{ $errors->first('footer_text') }}</span>
+                            @endif
                         </div>
                     </div>
+
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
@@ -64,12 +74,4 @@
         </div>
     </div>
 </div>
-@endsection
-@section('scripts')
-<script src="{{asset('adminlte/plugins/js/bs-custom-file-input.min.js')}}"></script>
-<script>
-    $(function() {
-        bsCustomFileInput.init();
-    });
-</script>
 @endsection
