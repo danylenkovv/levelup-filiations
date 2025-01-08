@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -17,17 +16,5 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
-    }
-
-    /**
-     * Handle the authenticated user logic.
-     */
-    protected function authenticated($user)
-    {
-        if (Hash::check('admin', $user->password)) {
-            return redirect()->route('password.change');
-        }
-
-        return redirect()->intended($this->redirectTo);
     }
 }

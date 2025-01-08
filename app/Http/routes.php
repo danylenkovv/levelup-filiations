@@ -25,7 +25,7 @@ Route::get('/password/change', 'Auth\PasswordController@showChangeForm')->name('
 Route::post('/password/change', 'Auth\PasswordController@updatePassword')->name('password.update');
 
 // Admin routes with middleware for authentication
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'check.default.password']], function () {
     Route::get('/', function () {
         return view('filiations.admin');
     })->name('admin');

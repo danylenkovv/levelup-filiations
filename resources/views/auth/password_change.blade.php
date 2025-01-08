@@ -27,7 +27,7 @@
 
                     <!-- New Password -->
                     <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="New Password">
+                        <input type="password" name="password" class="form-control" value="{{ old('password') }}" placeholder="New Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>

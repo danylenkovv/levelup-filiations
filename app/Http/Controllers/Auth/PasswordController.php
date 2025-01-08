@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
 class PasswordController extends Controller
@@ -28,20 +27,14 @@ class PasswordController extends Controller
      */
     public function updatePassword(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $this->validate($request, [
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
+        Auth::user()->update([
+            'password' => Hash::make($request->password),
+        ]);
 
-        $user = Auth::user();
-        $user->password = Hash::make($request->password);
-        $user->save();
-
-        return redirect('/');
+        return redirect('/admin')->with('success', 'Password changed successfully!');
     }
 }
