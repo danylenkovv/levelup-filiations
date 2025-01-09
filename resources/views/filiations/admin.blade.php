@@ -18,7 +18,7 @@
                             <th>Photo</th>
                             <th>Name</th>
                             <th>Contact Info</th>
-                            <th>Map Address</th>
+                            <th>Google Map</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -55,9 +55,30 @@
                             <!-- Map Address -->
                             <td>
                                 @if ($filiation->map)
-                                <a href="{{ $filiation->map }}" class="text-primary text-truncate d-inline-block" style="max-width: 150px;" target="_blank">
-                                    {{ $filiation->map }}
-                                </a>
+                                <div class="d-flex flex-column">
+                                    <button class="btn btn-link p-0 mt-1" data-toggle="modal" data-target="#mapModal-{{ $filiation->id }}">
+                                        Launch map view
+                                    </button>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="mapModal-{{ $filiation->id }}" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel-{{ $filiation->id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mapModalLabel-{{ $filiation->id }}">Map for {{ $filiation->name }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="embed-responsive embed-responsive-16by9">
+                                                    <iframe src="{{ $filiation->map }}" width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 @else
                                 <span>No map provided</span>
                                 @endif
