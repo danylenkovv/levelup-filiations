@@ -11,13 +11,17 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="#" method="post" class="form-horizontal">
+            <form action="{{route('admin.filiation.store')}}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                {{@csrf_field()}}
                 <div class="card-body">
                     <!-- Name -->
                     <div class="form-group row">
                         <label for="name" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Enter filiation name here...">
+                            <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}" placeholder="Enter filiation name here...">
+                            @if ($errors->has('name'))
+                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                            @endif
                         </div>
                     </div>
 
@@ -34,6 +38,9 @@
                                     <span class="input-group-text">Upload</span>
                                 </div>
                             </div>
+                            @if ($errors->has('photo_url'))
+                            <span class="text-danger">{{ $errors->first('photo_url') }}</span>
+                            @endif
                         </div>
                     </div>
 
@@ -41,20 +48,28 @@
                     <div class="form-group row">
                         <label for="map" class="col-sm-2 col-form-label">Location on Google Map</label>
                         <div class="col-sm-10">
-                            <input type="text" name="map" class="form-control" id="map" placeholder="Enter link here...">
+                            <input type="text" name="map" class="form-control" id="map" value="{{ old('map') }}" placeholder="Enter link here...">
+                            @if ($errors->has('map'))
+                            <span class="text-danger">{{ $errors->first('map') }}</span>
+                            @endif
                         </div>
                     </div>
+
+                    <!-- Address & Contacts -->
                     <div class="form-group row">
                         <label for="info" class="col-sm-2 col-form-label">Address & Contacts</label>
                         <div class="col-sm-10">
-                            <textarea name="info" id="info" class="form-control" rows="5" placeholder="Enter address and contacts"></textarea>
+                            <textarea name="info" id="info" class="form-control" rows="5" placeholder="Enter address and contacts">{{ old('info') }}</textarea>
+                            @if ($errors->has('info'))
+                            <span class="text-danger">{{ $errors->first('info') }}</span>
+                            @endif
                         </div>
                     </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="{{ route('admin') }}" class="btn btn-default float-right">Cancel</a>
+                    <a href="{{ route('admin.filiation.index') }}" class="btn btn-default float-right">Cancel</a>
                 </div>
                 <!-- /.card-footer -->
             </form>

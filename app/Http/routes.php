@@ -12,9 +12,7 @@
 */
 
 // Show public page
-Route::get('/', function () {
-    return view('filiations.index');
-})->name('app');
+Route::get('/', 'FiliationController@appIndex')->name('app');
 
 // Auth routes
 Route::get('login', 'Auth\AuthController@showLoginForm')->name('login');
@@ -26,17 +24,10 @@ Route::post('/password/change', 'Auth\PasswordController@updatePassword')->name(
 
 // Admin routes with middleware for authentication
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'check.default.password']], function () {
-    Route::get('/', function () {
-        return view('filiations.admin');
-    })->name('admin');
 
-    Route::get('/filiations/create', function () {
-        return view('filiations.create');
-    })->name('filiations.create');
-
-    Route::get('/filiations/edit', function () {
-        return view('filiations.edit');
-    })->name('filiations.edit');
+    Route::resource('filiation', 'FiliationController', ['except' => [
+        'show',
+    ]]);
 
     Route::resource('user', 'UserController', ['only' => [
         'index',
