@@ -17,7 +17,12 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('users.index', compact('users'));
+        $title = 'Dashboard | Users';
+        $breadcrumbs = [
+            ['name' => 'Dashboard / Filiations', 'route' => route('admin.filiation.index')],
+            ['name' => 'Users', 'route' => null],
+        ];
+        return view('users.index', compact('users', 'breadcrumbs', 'title'));
     }
 
     /**
@@ -27,7 +32,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $title = 'Dashboard | Create user';
+        $breadcrumbs = [
+            ['name' => 'Dashboard / Filiations', 'route' => route('admin.filiation.index')],
+            ['name' => 'Create user', 'route' => null],
+        ];
+        return view('users.create', compact('breadcrumbs', 'title'));
     }
 
     /**

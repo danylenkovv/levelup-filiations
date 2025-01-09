@@ -16,7 +16,8 @@ class FiliationController extends Controller
     public function appIndex()
     {
         $filiations = Filiation::all();
-        return view('filiations.index', compact('filiations'));
+        $title = 'Filiations';
+        return view('filiations.index', compact('filiations', 'title'));
     }
 
     /**
@@ -26,7 +27,11 @@ class FiliationController extends Controller
     public function index()
     {
         $filiations = Filiation::all();
-        return view('filiations.admin', compact('filiations'));
+        $title = 'Dashboard | Filiations';
+        $breadcrumbs = [
+            ['name' => 'Dashboard / Filiations', 'route' => null],
+        ];
+        return view('filiations.admin', compact('filiations', 'breadcrumbs', 'title'));
     }
 
     /**
@@ -35,7 +40,12 @@ class FiliationController extends Controller
      */
     public function create()
     {
-        return view('filiations.create');
+        $title = 'Dashboard | Create filiation';
+        $breadcrumbs = [
+            ['name' => 'Dashboard / Filiations', 'route' => route('admin.filiation.index')],
+            ['name' => 'Create filiation', 'route' => null],
+        ];
+        return view('filiations.create', compact('breadcrumbs', 'title'));
     }
 
     /**
@@ -65,7 +75,12 @@ class FiliationController extends Controller
      */
     public function edit(Filiation $filiation)
     {
-        return view('filiations.edit', ['filiation' => $filiation]);
+        $title = 'Dashboard | Edit filiation';
+        $breadcrumbs = [
+            ['name' => 'Dashboard / Filiations', 'route' => route('admin.filiation.index')],
+            ['name' => 'Edit filiation', 'route' => null],
+        ];
+        return view('filiations.edit', ['filiation' => $filiation, 'breadcrumbs' => $breadcrumbs, 'title' => $title]);
     }
 
     /**

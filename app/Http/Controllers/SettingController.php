@@ -15,8 +15,13 @@ class SettingController extends Controller
     public function index()
     {
         $settings = Setting::all()->pluck('value', 'key')->toArray();
+        $title = 'Dashboard | Site Settings';
+        $breadcrumbs = [
+            ['name' => 'Dashboard / Filiations', 'route' => route('admin.filiation.index')],
+            ['name' => 'Site settings', 'route' => null],
+        ];
 
-        return view('settings.index', compact('settings'));
+        return view('settings.index', compact('settings', 'breadcrumbs', 'title'));
     }
 
     /**

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard</title>
+    <title>{{$title}}</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -104,8 +104,15 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="{{route('app')}}">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard</li>
+                                @foreach($breadcrumbs as $key => $breadcrumb)
+                                @if ($key === count($breadcrumbs) - 1)
+                                <li class="breadcrumb-item active">{{ $breadcrumb['name'] }}</li>
+                                @else
+                                <li class="breadcrumb-item">
+                                    <a href="{{ $breadcrumb['route'] }}">{{ $breadcrumb['name'] }}</a>
+                                </li>
+                                @endif
+                                @endforeach
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
