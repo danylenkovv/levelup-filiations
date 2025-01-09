@@ -67,7 +67,7 @@
                 <!-- /.card-body -->
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="{{ route('admin') }}" class="btn btn-default float-right">Cancel</a>
+                    <a href="{{ route('admin.filiation.index') }}" class="btn btn-default float-right">Cancel</a>
                 </div>
                 <!-- /.card-footer -->
             </form>
