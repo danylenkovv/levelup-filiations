@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Filiation;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreFiliationRequest;
+use App\Http\Requests\UpdateFiliationRequest;
 use Illuminate\Support\Facades\Storage;
 
 class FiliationController extends Controller
@@ -39,18 +40,11 @@ class FiliationController extends Controller
 
     /**
      * Store a newly created filiation in DB.
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\StoreFiliationRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreFiliationRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:255|unique:filiations,name',
-            'photo_url' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'map' => 'string|max:300',
-            'info' => 'required|string',
-        ]);
-
         $data = $request->all();
 
         if ($request->hasFile('photo_url')) {
@@ -76,19 +70,12 @@ class FiliationController extends Controller
 
     /**
      * Update the specified filiation in DB.
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\UpdateFiliationRequest $request
      * @param \App\Filiation $filiation
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Filiation $filiation)
+    public function update(UpdateFiliationRequest $request, Filiation $filiation)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:255|unique:filiations,name,' . $filiation->id,
-            'photo_url' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'map' => 'string|max:300',
-            'info' => 'required|string',
-        ]);
-
         $data = $request->all();
 
         if ($request->hasFile('photo_url')) {
