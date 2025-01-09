@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\UpdateSettingRequest;
 
 use App\Setting;
 
@@ -21,18 +21,11 @@ class SettingController extends Controller
 
     /**
      * Update site settings records in DB
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\UpdateSettingRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request)
+    public function update(UpdateSettingRequest $request)
     {
-        $this->validate($request, [
-            'logo_text' => 'required|string|max:255',
-            'site_name' => 'required|string|max:255',
-            'site_description' => 'required|string',
-            'footer_text' => 'required|string|max:255',
-        ]);
-
         foreach ($request->except('_token') as $key => $value) {
             Setting::updateOrCreate(['key' => $key], ['value' => $value]);
         }
