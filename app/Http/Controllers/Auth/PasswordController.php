@@ -35,6 +35,6 @@ class PasswordController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect('/admin')->with('success', 'Password changed successfully!');
+        return redirect()->route('admin.filiation.index')->with('success', 'Password changed successfully!');
     }
 }

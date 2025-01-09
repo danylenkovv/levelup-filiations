@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- SweetAlert style -->
+    <link rel="stylesheet" href="{{asset('adminlte/plugins/css/bootstrap-4.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/adminlte.min.css')}}">
     @yield('additional-styles')
@@ -95,6 +97,7 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
+                    <div id="sweet-alert-message" data-message="{{ session('success') }}" style="display: none;"></div>
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">Dashboard</h1>
@@ -129,8 +132,30 @@
         <script src="{{asset('adminlte/plugins/js/jquery.min.js')}}"></script>
         <!-- Bootstrap -->
         <script src="{{asset('adminlte/plugins/js/bootstrap.bundle.min.js')}}"></script>
+        <!-- SweetAlert -->
+        <script src="{{asset('adminlte/plugins/js/sweetalert2.min.js')}}"></script>
         <!-- AdminLTE -->
         <script src="{{asset('adminlte/dist/js/adminlte.js')}}"></script>
+        <script>
+            $(function() {
+                var Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+
+                var message = $('#sweet-alert-message').data('message');
+
+                if (message) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: message
+                    });
+                }
+            });
+        </script>
+
         @yield('scripts')
 </body>
 
