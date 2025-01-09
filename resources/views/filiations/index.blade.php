@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('content')
 <div class="row">
+    @if($filiations->isEmpty())
+    <div class="col-12 text-center mt-5">
+        <h1 class="display-4 text-muted">No filiations created yet</h1>
+    </div>
+    @else
     @foreach($filiations as $filiation)
     <div class="col-lg-12 mb-4">
         <a href="#" data-toggle="modal" data-target="#mapModal-{{ $filiation->id }}" class="text-decoration-none text-dark">
@@ -47,5 +52,6 @@
         </div>
     </div>
     @endforeach
+    @endif
 </div>
 @endsection
