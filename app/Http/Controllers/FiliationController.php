@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Filiation;
 use App\Http\Requests\StoreFiliationRequest;
 use App\Http\Requests\UpdateFiliationRequest;
-use Illuminate\Support\Facades\Storage;
+use App\Traits\PhotoTrait;
 
 class FiliationController extends Controller
 {
+    use PhotoTrait;
     /**
      * Display a list of the filiations for app users.
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -58,9 +59,7 @@ class FiliationController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('photo_url')) {
-            $fileName = time() . '_' . $request->file('photo_url')->getClientOriginalName();
-            Storage::disk('public')->put('uploads/' . $fileName, file_get_contents($request->file('photo_url')));
-            $data['photo_url'] = 'uploads/' . $fileName;
+            $data['photo_url'] = $this->savePhoto($request->file('photo_url'));
         }
 
         Filiation::create($data);
@@ -94,13 +93,8 @@ class FiliationController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('photo_url')) {
-            if ($filiation->photo_url !== 'uploads/default.jpg' && Storage::disk('public')->exists($filiation->photo_url)) {
-                Storage::disk('public')->delete($filiation->photo_url);
-            }
-
-            $fileName = time() . '_' . $request->file('photo_url')->getClientOriginalName();
-            Storage::disk('public')->put('uploads/' . $fileName, file_get_contents($request->file('photo_url')));
-            $data['photo_url'] = 'uploads/' . $fileName;
+            $this->deletePhoto($filiation->photo_url);
+            $data['photo_url'] = $this->savePhoto($request->file('photo_url'));
         }
 
         $filiation->update($data);
@@ -115,10 +109,7 @@ class FiliationController extends Controller
      */
     public function destroy(Filiation $filiation)
     {
-        if ($filiation->photo_url !== 'uploads/default.jpg' && Storage::disk('public')->exists($filiation->photo_url)) {
-            Storage::disk('public')->delete($filiation->photo_url);
-        }
-
+        $this->deletePhoto($filiation->photo_url);
         $filiation->delete();
 
         return redirect()->route('admin.filiation.index')->with('success', 'Filiation deleted successfully.');
