@@ -35,7 +35,7 @@
                                 <td>{!! $filiation->info !!}</td>
                                 <td>
                                     @if ($filiation->map)
-                                    <button class="btn btn-link p-0 mt-1" data-toggle="modal" data-target="#mapModal-{{ $filiation->id }}">Launch map view</button>
+                                    <button class="btn btn-link p-0 mt-1" data-toggle="modal" data-target="#mapModal{{ $filiation->id }}">Launch map view</button>
                                     @else
                                     <span>No map provided</span>
                                     @endif
@@ -43,12 +43,52 @@
                                 <td>
                                     <a href="{{ route('admin.filiation.edit', $filiation->id) }}" class="btn btn-primary btn-sm">Edit</a>
                                     <form action="{{ route('admin.filiation.destroy', $filiation->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this filiation?')">
-                                        {{@csrf_field()}}
+                                        {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
                                 </td>
                             </tr>
+
+                            <!-- Photo Modal -->
+                            <div class="modal fade" id="photoModal{{ $filiation->id }}" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel{{ $filiation->id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="photoModalLabel{{ $filiation->id }}">Photo of {{ $filiation->name }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body d-flex justify-content-center align-items-center">
+                                            <img src="{{ asset('storage/' . $filiation->photo_url) }}" alt="Photo" class="img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Map Modal -->
+                            <div class="modal fade" id="mapModal{{ $filiation->id }}" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel{{ $filiation->id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="mapModalLabel{{ $filiation->id }}">Our address on the map:</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="embed-responsive embed-responsive-16by9">
+                                                @if ($filiation->map)
+                                                <iframe src="{{ $filiation->map }}" width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                @else
+                                                <h3 class="text-center">Map not available for this filiation.</h3>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             @endforeach
                         </tbody>
                     </table>
