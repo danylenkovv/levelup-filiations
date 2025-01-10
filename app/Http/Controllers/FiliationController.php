@@ -18,8 +18,11 @@ class FiliationController extends Controller
     {
         $filiations = Filiation::all();
         $title = 'Filiations';
-        return view('filiations.index', compact('filiations', 'title'));
+        $settings = config('settings');
+
+        return view('filiations.index', compact('filiations', 'title', 'settings'));
     }
+
 
     /**
      * Display a list of the filiations for administrators.
