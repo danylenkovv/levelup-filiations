@@ -66,6 +66,7 @@
     <script src="{{ asset('adminlte/plugins/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE -->
     <script src="{{ asset('adminlte/dist/js/adminlte.js') }}"></script>
+    @yield('scripts')
 </body>
 
 </html>

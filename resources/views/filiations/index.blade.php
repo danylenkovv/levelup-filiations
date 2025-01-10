@@ -8,7 +8,7 @@
     @else
     @foreach($filiations as $filiation)
     <div class="col-lg-12 mb-4">
-        <a href="#" data-toggle="modal" data-target="#mapModal-{{ $filiation->id }}" class="text-decoration-none text-dark">
+        <a href="#" data-toggle="modal" data-target="#mapModal-{{ $filiation->id }}" class="text-decoration-none text-dark filiation-card">
             <div class="card">
                 <div class="row no-gutters">
                     <div class="col-md-2">
@@ -18,7 +18,7 @@
                         <div class="card-body">
                             <h3>{{ $filiation->name }}</h3>
                             <p class="card-text">
-                            <div class="formatted-content">
+                            <div class="formatted-content js-info">
                                 {!! $filiation->info !!}
                             </div>
                             </p>
@@ -39,14 +39,12 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        @if ($filiation->map)
-                        <iframe src="{{ $filiation->map }}" width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        @else
-                        <h3 class="text-center">Map not available for this filiation.</h3>
-                        @endif
-                    </div>
+                <div class="modal-body d-flex justify-content-center align-items-center" style="height: 400px;">
+                    @if ($filiation->map)
+                    <iframe src="{{ $filiation->map }}" width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    @else
+                    <h3 class="text-center">Map not available for this filiation.</h3>
+                    @endif
                 </div>
             </div>
         </div>
@@ -54,4 +52,22 @@
     @endforeach
     @endif
 </div>
+@endsection
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        const phonePattern = /(\+?\d{1,4}[ \-]?\(?\d{2,}\)?[ \-]?\d{3,}[ \-]?\d{4,})/g;
+
+        $('.js-info').html(function(_, html) {
+            return html.replace(phonePattern, match => {
+                const cleanPhone = match.replace(/[^\d+]/g, '');
+                return `<a href="tel:${cleanPhone}" class="phone-link">${match}</a>`;
+            });
+        });
+
+        $('.filiation-card').on('click', e => {
+            if ($(e.target).is('.phone-link')) e.stopPropagation();
+        });
+    });
+</script>
 @endsection
