@@ -32,7 +32,7 @@
                                     </a>
                                 </td>
                                 <td>{{ $filiation->name }}</td>
-                                <td>{!! $filiation->info !!}</td>
+                                <td class="js-info">{!! $filiation->info !!}</td>
                                 <td>
                                     @if ($filiation->map)
                                     <button class="btn btn-link p-0 mt-1" data-toggle="modal" data-target="#mapModal{{ $filiation->id }}">Launch map view</button>
@@ -101,6 +101,7 @@
 @section('scripts')
 <script src="{{ asset('adminlte/plugins/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('js/scripts.js') }}"></script>
 <script>
     $(function() {
         $('#example2').DataTable({
