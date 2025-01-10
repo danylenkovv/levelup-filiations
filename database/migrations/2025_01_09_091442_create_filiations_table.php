@@ -15,8 +15,8 @@ class CreateFiliationsTable extends Migration
         Schema::create('filiations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 255)->unique();
-            $table->string('photo_url')->default('uploads/default.jpg');
-            $table->string('map', 300)->nullable();
+            $table->string('photo_url');
+            $table->string('map', 500)->nullable();
             $table->text('info');
             $table->timestamps();
         });
